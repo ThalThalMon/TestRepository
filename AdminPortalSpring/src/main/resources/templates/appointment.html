@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"></head>
+<body>
+<head th:replace="common/header :: navbar"/>
+
+<div class="table-responsive">
+	<table id="example"
+		class="table table-bordered table-hover table-striped">
+		<thead>
+			<tr>
+				<th>AppointmentID</th>
+				<th>Username</th>
+				<th>Date</th>
+				<th>Location</th>
+				<th>Description</th>
+				<th>Confirmed?</th>
+				<th>Action</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="appointment : ${appointmentList}">
+				<td data-th-text="${appointment.appointmentId}">...</td>
+				<td data-th-text="${appointment.user.username}">...</td>
+				<td data-th-text="${appointment.appointmentDate}">...</td>
+				<td data-th-text="${appointment.appointmentLocation}">...</td>
+				<td data-th-text="${appointment.appointmentDescription}">...</td>
+				<td data-th-text="${appointment.comfirmed}">...</td>
+				<td th:if = "${appointment.comfirmed}" th:text="Comfirmed">...</td>
+				<td th:unless = "${appointment.comfirmed}"><a th:href = "@{'/comfirmedUser?id='+${appointment.appointmentId}}">Comfirm</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div th:replace="common/header :: body-bottom-scripts"></div>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+</body>
+</html>
